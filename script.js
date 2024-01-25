@@ -1,73 +1,94 @@
+// Assign a variable to the form
 let form = document.querySelector(".register-form");
+
+// Assign a variable to the table
 let table = document.querySelector(".table-form");
 let tbody = document.createElement("tbody");
+
+// Add the tbody element to the table element
+table.appendChild(tbody);
+
+// Assign a variable to the card groups
 let cardGroup = document.querySelector(".card-group");
+
+// Assign a variable to the form header
 let legend = document.querySelector("legend");
+
+// Assign a variable to the parent element of the form submit button
 let buttons = document.querySelector(".submit");
+
+// Assign a variable to the form submit button
 let signUP = document.querySelector(".sign-up");
+
+// Create by assigning a variable to the buttons used to delete and edit the form
 let cancel = document.createElement("input");
 let restore = document.createElement("input");
 
-let firstName = document.getElementById("fname");
-let lastName = document.getElementById("lname");
-let phoneNumber = document.getElementById("phone");
-let emailAdr = document.getElementById("email");
-
-let modal = document.querySelector(".modal");
-let modFirstName = document.getElementById("modal-fname");
-let modLastName = document.getElementById("modal-lname");
-let modPhoneNumber = document.getElementById("modal-phone");
-let modEmailAdr = document.getElementById("modal-email");
-
-
-let modButtons = document.createElement("div");
-modButtons.setAttribute("class", "submit d-flex justify-content-end");
-
-let modCancel = document.createElement("input");
-let modRestore = document.createElement("input");
-
-
-
-modCancel.setAttribute("type", "reset");
-modCancel.setAttribute("class", "btn btn-danger");
-modCancel.setAttribute("value", "İmtina et");
-modCancel.style.display = "none";
-modButtons.appendChild(modCancel);
-
-
-modRestore.setAttribute("type", "button");
-modRestore.setAttribute("class", "btn btn-warning ms-2");
-modRestore.setAttribute("value", "Yenilə");
-modRestore.style.display = "none";
-modButtons.appendChild(modRestore);
-
-
-modal.appendChild(modButtons);
-
-
-const ID = new Date().getTime();
-
-
+// Assign a variable by creating attributes for the cancel button on the form
 cancel.setAttribute("type", "reset");
 cancel.setAttribute("class", "btn btn-danger");
 cancel.setAttribute("value", "İmtina et");
 cancel.style.display = "none";
 buttons.appendChild(cancel);
 
-
-
+// Assign a variable by creating attributes for the restore button on the form
 restore.setAttribute("type", "button");
 restore.setAttribute("class", "btn btn-warning ms-2");
 restore.setAttribute("value", "Yenilə");
 restore.style.display = "none";
 buttons.appendChild(restore);
 
-table.appendChild(tbody);
+// Assigning variables to form inputs
+let firstName = document.getElementById("fname");
+let lastName = document.getElementById("lname");
+let phoneNumber = document.getElementById("phone");
+let emailAdr = document.getElementById("email");
+
+// Assigning variables to modal and modal inputs
+let modal = document.querySelector(".modal");
+let modFirstName = document.getElementById("modal-fname");
+let modLastName = document.getElementById("modal-lname");
+let modPhoneNumber = document.getElementById("modal-phone");
+let modEmailAdr = document.getElementById("modal-email");
+
+// Assigning a variable by creating the parent element of the modal buttons
+let modButtons = document.createElement("div");
+modButtons.setAttribute("class", "submit d-flex justify-content-end");
+
+// Create by assigning a variable to the buttons used to delete and edit the modal
+let modCancel = document.createElement("input");
+let modRestore = document.createElement("input");
+
+// Assign a variable by creating attributes for the cancel button in the modal
+modCancel.setAttribute("type", "reset");
+modCancel.setAttribute("class", "btn btn-danger");
+modCancel.setAttribute("value", "İmtina et");
+modCancel.style.display = "none";
+modButtons.appendChild(modCancel);
+
+// Assign a variable by creating attributes for the restore button in the modal
+modRestore.setAttribute("type", "button");
+modRestore.setAttribute("class", "btn btn-warning ms-2");
+modRestore.setAttribute("value", "Yenilə");
+modRestore.style.display = "none";
+modButtons.appendChild(modRestore);
+
+// Assigning the parent element of the buttons used in the modal to the modal box
+modal.appendChild(modButtons);
+
+// Creating a unique value for objects
+const ID = new Date().getTime();
 
 
 
+
+
+
+// A function to generate the input data in the form when the form is validated
 form.addEventListener("submit", function (e) {
+
     e.preventDefault();
+
     let name = firstName.value;
     let surname = lastName.value;
     let telephone = phoneNumber.value;
@@ -88,11 +109,16 @@ form.addEventListener("submit", function (e) {
         email: email,
     };
 
-
+    // Adding input data for both table and card
     addRow(data);
     addCard(data);
 });
 
+
+
+
+
+// Sending input data to the API
 function add() {
     fetch(`https://fakestoreapi.com/users`, {
         method: "POST",
@@ -117,6 +143,11 @@ function add() {
         });
 }
 
+
+
+
+
+// A function for transferring input data to a table
 function addRow(user) {
     let tr = document.createElement("tr");
     tr.setAttribute("data-id", user.id);
@@ -139,6 +170,11 @@ function addRow(user) {
     get(user.id);
 }
 
+
+
+
+
+// A function for transferring input data to a card
 function addCard(user) {
     let card = document.createElement("div");
     card.setAttribute("class", "card border mb-1");
@@ -174,8 +210,13 @@ function addCard(user) {
     form.reset();
 }
 
+
+
+
+
+// A function to pull all data from the API
 function getAll() {
-    fetch("https://fakestoreapi.com/users?limit=2")
+    fetch("https://fakestoreapi.com/users?limit=4")
         .then(function (res) {
             if (!res.ok) {
                 throw new Error("Şəbəkə hal-hazırda sizə cavab vermir...");
@@ -186,6 +227,10 @@ function getAll() {
         .then(function (users) {
 
             users.map(function (user) {
+
+                // Creating and setting up elements for sharing data pullen from the API in table row
+
+
                 let tr = document.createElement("tr");
                 tr.setAttribute("data-id", `${user.id}`);
 
@@ -217,12 +262,14 @@ function getAll() {
                 td.setAttribute("scope", "col");
                 tr.appendChild(td);
 
+                // Creating a button for the deletion operation in the table
                 let del = document.createElement("button");
                 del.setAttribute("class", "btn btn-outline-danger py-1 px-2");
                 del.setAttribute("onclick", `remove('${user.id}')`);
                 del.innerHTML = "Sil";
                 td.appendChild(del);
 
+                // Creating a button for the correction operation in the table
                 let fix = document.createElement("button");
                 fix.setAttribute("class", "btn btn-outline-warning p-1 ms-1");
                 fix.setAttribute("onclick", `get('${user.id}')`);
@@ -230,6 +277,12 @@ function getAll() {
                 td.appendChild(fix);
 
                 tbody.appendChild(tr);
+
+
+
+                // Creating and setting up elements for sharing data pullen from the API in card
+
+
 
                 let card = document.createElement("div");
                 card.setAttribute("class", "card border my-3");
@@ -300,21 +353,25 @@ function getAll() {
                 spanEm.innerHTML = user.email;
                 divEmail.appendChild(spanEm);
 
+                // Creating a parent element for the buttons on the card
                 let divButtons = document.createElement("div");
                 divButtons.setAttribute("class", "buttons");
                 cardBody.appendChild(divButtons);
 
+                // Creating the text context of the parent element for the buttons on the card
                 let spanButtons = document.createElement("span");
                 spanButtons.setAttribute("class", "fw-bold");
                 spanButtons.innerHTML = "Əməliyyatlar  ";
                 divButtons.appendChild(spanButtons);
 
+                // Creating a button for the deletion operation on the card
                 let cardDel = document.createElement("button");
                 cardDel.setAttribute("class", "btn btn-outline-danger py-1 px-2");
                 cardDel.setAttribute("onclick", `remove('${user.id}')`);
                 cardDel.innerHTML = "Sil";
                 divButtons.appendChild(cardDel);
 
+                // Creating a button for the correction operation on the card
                 let cardFix = document.createElement("button");
                 cardFix.setAttribute("class", "btn btn-outline-warning p-1 ms-1");
                 cardFix.setAttribute("onclick", `get('${user.id}')`);
@@ -322,6 +379,9 @@ function getAll() {
                 divButtons.appendChild(cardFix);
 
 
+
+
+                // Actions to be performed when the button is clicked to correct the data on the card
                 cardFix.addEventListener("click", function (e) {
                     e.preventDefault();
 
@@ -351,6 +411,11 @@ function getAll() {
         });
 }
 
+
+
+
+
+// A function for deleting data from the API
 function remove(id) {
     fetch(`https://fakestoreapi.com/users/${id}`, {
         method: "DELETE",
@@ -359,6 +424,8 @@ function remove(id) {
             if (!res.ok) {
                 throw new Error("Şəbəkə hal-hazırda sizə cavab vermir...");
             }
+
+            // Getting a notification to the browser when deleting data
 
             let removeBox = confirm("Silmək istədiyinizdən əminsiniz?");
 
@@ -379,6 +446,11 @@ function remove(id) {
         });
 }
 
+
+
+
+
+// Function to retrieve selected data
 function get(id) {
     fetch(`https://fakestoreapi.com/users/${id}`)
         .then(function (res) {
@@ -389,6 +461,8 @@ function get(id) {
             return res.json();
         })
         .then(function (user) {
+
+            // Inserting the selected data into the inputs as assigned values
             firstName.value =
                 user.name.firstname.charAt(0).toUpperCase() +
                 user.name.firstname.slice(1);
@@ -414,6 +488,11 @@ function get(id) {
         });
 }
 
+
+
+
+
+// Function for changing the selected data
 function update(id) {
     let data = {
         name: {
@@ -440,6 +519,9 @@ function update(id) {
                 throw new Error("Şəbəkə hal-hazırda sizə cavab vermir...");
             }
 
+
+
+            // Actions to be performed when clicking the edit button in the table
             restore.addEventListener("click", function (e) {
                 e.preventDefault();
 
@@ -460,6 +542,9 @@ function update(id) {
                 form.reset();
             });
 
+
+
+            // Actions to be performed when clicking the edit button in the modal
             modRestore.addEventListener("click", function (e) {
 
                 e.preventDefault();
@@ -486,6 +571,9 @@ function update(id) {
                 form.reset();
             });
 
+
+
+            // Actions to be performed when clicking the cancel button in the modal
             modCancel.addEventListener("click", function (e) {
 
                 e.preventDefault();
@@ -498,6 +586,8 @@ function update(id) {
                 form.reset();
             });
 
+
+            // Actions to be performed when clicking the cancel button in the table
             cancel.addEventListener("click", function (e) {
                 e.preventDefault();
                 e.target.style.display = "none";
