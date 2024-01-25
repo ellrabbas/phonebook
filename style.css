@@ -1,0 +1,142 @@
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.w-25 {
+    width: 25%;
+}
+
+.w-70 {
+    width: 70%;
+}
+
+input {
+    outline: 0;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+.main {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    flex-basis: 100%;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.register-form {
+    width: 45%;
+    border-radius: 7px;
+}
+
+.table-form {
+    width: 54%;
+    height: 100%;
+}
+
+
+.card {
+    border-radius: 0;
+}
+
+fieldset,
+.card {
+    position: relative;
+}
+
+legend {
+    width: 150px;
+    text-align: center;
+    position: absolute;
+    top: -70px;
+    background-color: white;
+}
+
+.card-desc {
+    position: absolute;
+    top: -15px;
+    left: 30px;
+    width: 140px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    background-color: white;
+}
+
+.modal {
+    display: none;
+    position: absolute;
+    background-color: white;
+    width: 370px;
+    height: 300px;
+    padding: 15px;
+    border-radius: 7px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid black;
+}
+
+
+@media screen and (min-width:995px) {
+    .card-group {
+        display: none;
+    }
+
+}
+
+@media screen and (max-width:995px) {
+
+    .table-form {
+        display: none;
+    }
+
+    .register-form {
+        width: 50%;
+        margin-inline-end: 5px;
+    }
+
+    .card-group {
+        margin: 5px;
+        display: block;
+        max-height: 360px;
+        width: 49%;
+        overflow: auto;
+    }
+
+    .card {
+        width: 100%;
+        height: auto;
+    }
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+@media screen and (max-width:768px) {
+    .register-form {
+        display: none;
+    }
+
+    .card-group {
+        margin: 0;
+        width: 100%;
+        height: auto;
+        overflow: visible;
+    }
+
+    .card {
+        width: 100%;
+        height: auto;
+    }
+}
